@@ -153,7 +153,10 @@ public class ProdutosController {
 				var response = new ArrayList<ProdutoResponseDto>();
 			
 			for(var produto : produtos) {
-				response.add(mapper.map(produto, ProdutoResponseDto.class));
+				var dto = (mapper.map(produto, ProdutoResponseDto.class));
+				dto.setCategoria(mapper.map(produto.getCategoria(), CategoriaResponseDto.class));
+				
+				response.add(dto);
 			}
 			
 			return response;		
@@ -163,4 +166,30 @@ public class ProdutosController {
 			return null;
 		}
 	}
+	
+	@Operation(summary = "Serviço para consulta de 1  produto através do id.")
+	@GetMapping("obter/{id}")
+	public ProdutoResponseDto obter(@PathVariable UUID id) {
+		try {
+			
+			var produtoRepository = new ProdutoRepository();
+			var produto = produtoRepository.findById(id); 
+					
+			if(produto != null) {
+				var response = (mapper.map(produto, ProdutoResponseDto.class));
+				response.setCategoria(mapper.map(produto.getCategoria(), CategoriaResponseDto.class));
+				
+				return response;
+			}
+			
+			
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		return null;
+	}
+	
 }

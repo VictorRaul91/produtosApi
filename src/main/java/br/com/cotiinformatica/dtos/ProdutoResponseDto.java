@@ -1,7 +1,9 @@
 package br.com.cotiinformatica.dtos;
 
-import lombok.Data;
 import java.util.UUID;
+
+
+import lombok.Data;
 
 @Data
 public class ProdutoResponseDto {
@@ -10,6 +12,7 @@ public class ProdutoResponseDto {
 	private String nome;
 	private Double preco;
 	private Integer quantidade;
+	private CategoriaResponseDto categoria;
 	
 	
 }
